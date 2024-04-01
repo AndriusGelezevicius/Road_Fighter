@@ -1,3 +1,5 @@
+import random
+
 import pygame
 import os
 import math
@@ -28,6 +30,10 @@ playerY = 680
 playerX_change = 0
 playerY_change = 0
 
+# Other cars
+#carImg = pygame.image.load("images/car.png")
+#carX = random.randint()
+#carY
 
 def player(x,y):
     screen.blit(playerImg, (x,y))
@@ -35,7 +41,6 @@ def player(x,y):
 running = True
 while running:
     clock.tick(FPS)
-    #screen.fill((0,0,0))
     #Clear the screen
     for i in range(-1, tiles): # Start with -1 to ensure seamless transition
         screen.blit(background, (0, i * bg_height + scroll))
@@ -67,9 +72,17 @@ while running:
             if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
                 playerY_change = 0
 
-
+    # Boundaries of player
     playerX += playerX_change
+    if playerX <= 70:
+        playerX = 70
+    elif playerX >= 600:
+        playerX = 600
     playerY += playerY_change
+    if playerY <= 0:
+        playerY =0
+    elif playerY >=680:
+        playerY = 680
     player(playerX, playerY)
 
     #Update the display
