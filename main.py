@@ -4,13 +4,14 @@ pygame.init()
 # Creating a screen
 screen = pygame.display.set_mode((800,600))
 
-# title, icon
+# title, icon and background
 pygame.display.set_caption("Road Fighter")
-icon = pygame.image.load("images\icon.png")
+icon = pygame.image.load("images/icon.png")
 pygame.display.set_icon(icon)
+background = pygame.image.load("images/background.png")
 
 # Player
-playerImg = pygame.image.load("images\player.png")
+playerImg = pygame.image.load("images/player.png")
 playerX = 370
 playerY = 480
 playerX_change = 0
@@ -27,21 +28,22 @@ running = True
 while running:
     #Clear the screen
     screen.fill((0,0,0))
+    screen.blit(background, (0,0))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                playerX_change = -0.3
+                playerX_change = -0.8
                 print("LEFT")
             if event.key == pygame.K_RIGHT:
-                playerX_change = 0.3
+                playerX_change = 0.8
                 print("RIGHT")
             if event.key == pygame.K_UP:
-                playerY_change = -0.3
+                playerY_change = -0.8
                 print("UP")
             if event.key == pygame.K_DOWN:
-                playerY_change = 0.3
+                playerY_change = 0.8
                 print("DOWN")
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
