@@ -67,8 +67,8 @@ while running:
     if collision_timer == 0:
         scroll += 10
 
-    # scroll background speed
-    scroll += 10
+    # scroll background speed after collision
+    scroll += 5
     # reset scroll
     if abs(scroll) > bg_height:
         scroll = 0
