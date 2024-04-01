@@ -36,17 +36,35 @@ carX = random.randint(70,600)
 carY = 100
 carY_change = 3.5
 
+#timer variables
+collision_timer = 0
+collision_duration = 300 # 300 ticks = 5 seconds (assuming 60 FPS)
+
 def player(x,y):
     screen.blit(playerImg, (x,y))
 def car(x,y):
     screen.blit(carImg, (x,y))
-
+def isCollision(carX, carY, playerX, playerY):
+    distance = math.sqrt((math.pow(carX - playerX,2)) +(math.pow(carY - playerY,2)))
+    if distance < 20:
+        return True
+    else:
+        return False
+#Game loop
 running = True
 while running:
     clock.tick(FPS)
+
+    # Handle collision timer
+    if collision_timer > 0:
+        collision_timer -=1
+
     #Clear the screen
     for i in range(-1, tiles): # Start with -1 to ensure seamless transition
         screen.blit(background, (0, i * bg_height + scroll))
+    # Scroll background speed if collision timer is 0
+    if collision_timer == 0:
+        scroll += 10
     # scroll background speed
     scroll += 10
     # reset scroll
@@ -89,10 +107,17 @@ while running:
 
     # Movement of car
     carY += carY_change
-    
+
+    # Collision
+    collision = isCollision(carX, carY, playerX, playerY)
+    if collision and collision_timer == 0 :
+        print("Collision!")#TODO: something is wrong
+        collision_timer = collision_duration # Start the collision timer
+
     player(playerX, playerY)
     car(carX, carY)
     #Update the display
+
     pygame.display.update()
 
 
