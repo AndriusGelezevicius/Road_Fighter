@@ -34,6 +34,7 @@ playerY_change = 0
 carImg = pygame.image.load("images/car.png")
 carX = random.randint(70,600)
 carY = 100
+carY_change = 3.5
 
 def player(x,y):
     screen.blit(playerImg, (x,y))
@@ -85,6 +86,10 @@ while running:
         playerY =0
     elif playerY >=680:
         playerY = 680
+
+    # Movement of car
+    carY += carY_change
+    
     player(playerX, playerY)
     car(carX, carY)
     #Update the display
