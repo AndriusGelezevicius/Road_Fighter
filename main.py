@@ -48,13 +48,14 @@ def player(x,y):
 def car(x,y):
     screen.blit(carImg, (x,y))
 def isCollision(carX, carY, playerX, playerY):
-    distance = math.sqrt((math.pow(carX - playerX,2)) +(math.pow(carY - playerY,2)))
-    if distance < 20:
-        return True
-    else:
-        return False
+    player_width, player_height = playerImg.get_size()
+    car_width, car_height = carImg.get_size()
+    # Define custom bounding boxes for player and car
+    player_rect = pygame.Rect(playerX, playerY, player_width - 70, player_height)
+    car_rect = pygame.Rect(carX, carY, car_width - 70, car_height)
+    # Check for collision between the adjusted bounding boxes
+    return player_rect.colliderect(car_rect)
 
-#Game loop
 running = True
 while running:
     clock.tick(FPS)
