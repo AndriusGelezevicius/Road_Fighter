@@ -19,9 +19,10 @@ background = pygame.image.load("images/background.png")
 clock = pygame.time.Clock()
 bg_height = background.get_height()
 
-# Background sound
+# Game sounds
 mixer.music.load("Sounds/car_moving.wav")
 mixer.music.play(-1) #-1 on loop
+
 # define game variables. +1 is a buffer, kad nesitemptu is 2 bg, nes trecias tuscias
 scroll = 0
 tiles = math.ceil(screen_height / bg_height) + 1
@@ -118,6 +119,8 @@ while running:
     collision = isCollision(carX, carY, playerX, playerY)
     if collision and collision_timer == 0 :
         print("Collision!")#TODO: something is wrong
+        crash_sound = mixer.Sound("Sounds/crash.wav")
+        crash_sound.play()
         collision_timer = collision_duration # Start the collision timer
 
     player(playerX, playerY)
