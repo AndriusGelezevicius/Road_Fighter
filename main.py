@@ -1,4 +1,6 @@
 import random
+import time
+
 from pygame import mixer
 import pygame
 import os
@@ -28,6 +30,11 @@ full_heart_path = "images/full_heart.png"
 full_heart_list = [full_heart_path]*3
 empty_heart_path = "images/empty_heart.png"
 empty_heart_list = [empty_heart_path, empty_heart_path, empty_heart_path]
+# Game over
+game_over = pygame.image.load("images/game_over.png")
+game_over_displayed = False
+# Keep track of the time
+start_time = time.time()
 
 # define game variables. +1 is a buffer, kad nesitemptu is 2 bg, nes trecias tuscias
 scroll = 0
@@ -145,10 +152,18 @@ while running:
             full_heart_list[1] = empty_heart_path
         elif collision_count == 3:
             full_heart_list[0] = empty_heart_path
+            game_over_displayed = True
+            #if time.time() - start_time > 10:
+             #   running = False
+
 
         crash_sound = mixer.Sound("Sounds/crash.wav")
         crash_sound.play()
         collision_timer = collision_duration # Start the collision timer
+    # Display the game over image if the flag is set
+    if game_over_displayed:
+        screen.blit(game_over, (screen_width // 2 - game_over.get_width() // 2, screen_height // 2 - game_over.get_height() // 2))
+
 
     player(playerX, playerY)
     car(carX, carY)
