@@ -26,6 +26,9 @@ mixer.music.play(-1) #-1 on loop
 # Lifes
 full_heart_path = "images/full_heart.png"
 full_heart_list = [full_heart_path]*3
+empty_heart_path = "images/empty_heart.png"
+empty_heart_list = [empty_heart_path, empty_heart_path, empty_heart_path]
+
 # define game variables. +1 is a buffer, kad nesitemptu is 2 bg, nes trecias tuscias
 scroll = 0
 tiles = math.ceil(screen_height / bg_height) + 1
@@ -69,6 +72,7 @@ def display_full_hearts(full_heart_list):
 
 
 running = True
+collision_count = 0
 while running:
     clock.tick(FPS)
     # Handle collision timer
@@ -129,9 +133,19 @@ while running:
         carY = -50
         carX = random.randint(70,600)
     # Collision
+
     collision = isCollision(carX, carY, playerX, playerY)
     if collision and collision_timer == 0 :
-        print("Collision!")#TODO: something is wrong
+        print("Collision!")
+        collision_count += 1
+        if collision_count == 1:
+            # First collision, change the state of the third heart to empty
+            full_heart_list[2] = empty_heart_path
+        elif collision_count == 2:
+            full_heart_list[1] = empty_heart_path
+        elif collision_count == 3:
+            full_heart_list[0] = empty_heart_path
+
         crash_sound = mixer.Sound("Sounds/crash.wav")
         crash_sound.play()
         collision_timer = collision_duration # Start the collision timer
