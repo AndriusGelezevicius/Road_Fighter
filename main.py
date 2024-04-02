@@ -1,5 +1,5 @@
 import random
-
+from pygame import mixer
 import pygame
 import os
 import math
@@ -19,6 +19,9 @@ background = pygame.image.load("images/background.png")
 clock = pygame.time.Clock()
 bg_height = background.get_height()
 
+# Background sound
+mixer.music.load("Sounds/car_moving.wav")
+mixer.music.play(-1) #-1 on loop
 # define game variables. +1 is a buffer, kad nesitemptu is 2 bg, nes trecias tuscias
 scroll = 0
 tiles = math.ceil(screen_height / bg_height) + 1
@@ -34,8 +37,7 @@ playerY_change = 0
 carImg = pygame.image.load("images/car.png")
 carX = random.randint(70,600)
 carY = 100
-carY_change = 3.5
-
+carY_change = 10
 #timer variables
 collision_timer = 0
 collision_duration = 200 # delay for 3 sec
