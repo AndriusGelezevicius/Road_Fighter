@@ -23,6 +23,9 @@ bg_height = background.get_height()
 mixer.music.load("Sounds/car_moving.wav")
 mixer.music.play(-1) #-1 on loop
 
+# Lifes
+full_heart_path = "images/full_heart.png"
+full_heart_list = [full_heart_path]*3
 # define game variables. +1 is a buffer, kad nesitemptu is 2 bg, nes trecias tuscias
 scroll = 0
 tiles = math.ceil(screen_height / bg_height) + 1
@@ -55,6 +58,15 @@ def isCollision(carX, carY, playerX, playerY):
     car_rect = pygame.Rect(carX, carY, car_width - 70, car_height)
     # Check for collision between the adjusted bounding boxes
     return player_rect.colliderect(car_rect)
+
+def display_full_hearts(full_heart_list):
+    for index, photo in enumerate(full_heart_list):
+        full_heart_surface = pygame.image.load(photo)
+        photo_rect = full_heart_surface.get_rect()
+        photo_rect.topleft = (120 + index * 80, 40)
+        screen.blit(full_heart_surface, photo_rect)
+
+
 
 running = True
 while running:
@@ -126,7 +138,7 @@ while running:
 
     player(playerX, playerY)
     car(carX, carY)
-
+    display_full_hearts(full_heart_list)
     #Update the display
     pygame.display.update()
 
