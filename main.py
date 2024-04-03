@@ -153,8 +153,7 @@ while running:
         elif collision_count == 3:
             full_heart_list[0] = empty_heart_path
             game_over_displayed = True
-            #if time.time() - start_time > 10:
-             #   running = False
+            game_over_time = time.time()  # Record the time when game over is displayed
 
 
         crash_sound = mixer.Sound("Sounds/crash.wav")
@@ -163,7 +162,12 @@ while running:
     # Display the game over image if the flag is set
     if game_over_displayed:
         screen.blit(game_over, (screen_width // 2 - game_over.get_width() // 2, screen_height // 2 - game_over.get_height() // 2))
-
+        mixer.music.stop()
+        crash_sound.stop()
+        game_over_sound = mixer.Sound("Sounds/game_over.wav")
+        game_over_sound.play()
+        if time.time() - game_over_time > 5:
+            running = False
 
     player(playerX, playerY)
     car(carX, carY)
